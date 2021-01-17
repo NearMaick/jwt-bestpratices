@@ -1,6 +1,12 @@
 const jwt = require('jsonwebtoken')
 
-const sign = payload => jwt.sign(payload, 'rocketseat')
+const { crypto: config } = require('../../config')
+
+const signOptions = {
+  algorithm: 'RS256',
+}
+
+const sign = payload => jwt.sign(payload, config.jwt.privateKey, signOptions)
 
 const verify = token => new Promise((resolve, reject) =>
   jwt.verify(
